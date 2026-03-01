@@ -30,7 +30,7 @@ function App() {
 
   const hasDraw = (gameTurns.length === 9) && !winner;
 
-  const gameBoard = initialGameBoard;
+  const gameBoard = [...initialGameBoard.map(innerArray => [...innerArray])];
 
   for (const turn of gameTurns) {
     const { square, player } = turn;
@@ -70,6 +70,10 @@ function App() {
     });
   }
 
+  function handleRematchClick(){
+    setGameTurns([]);
+  }
+
   return (
     <>
       <div id="game-container">
@@ -85,7 +89,7 @@ function App() {
             activePlayer={activePlayer === "O"}
           />
         </ol>
-        {(winner || hasDraw) && <GameOver winner={winner}/>}
+        {(winner || hasDraw) && <GameOver winner={winner} onRestart={handleRematchClick}/>}
         <GameBoard onSelectSquare={handleSelectedPlayer} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
