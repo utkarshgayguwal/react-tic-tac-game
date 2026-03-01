@@ -28,6 +28,8 @@ function App() {
 
   let winner;
 
+  const hasDraw = (gameTurns.length === 9) && !winner;
+
   const gameBoard = initialGameBoard;
 
   for (const turn of gameTurns) {
@@ -83,7 +85,7 @@ function App() {
             activePlayer={activePlayer === "O"}
           />
         </ol>
-        {winner && <GameOver winner={winner}/>}
+        {(winner || hasDraw) && <GameOver winner={winner}/>}
         <GameBoard onSelectSquare={handleSelectedPlayer} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
